@@ -79,9 +79,9 @@
   <div class="container">
     <h1>TodoList</h1>
 
-    <form>
+    <form onsubmit="submitTodo(); return false">
       <input type="text" id="new-todo" placeholder="What needs to be done?">
-      <onsubmit="submitTodo(); return false">
+      
     </form>
 
     <ul id="todolist">
@@ -98,6 +98,8 @@
       Todo: <span id="todo-count">1</span> •
       Done: <span id="completed-count">0</span> •
       Total: <span id="total-count">1</span>
+  <!-- link to clean up todos that are done -->
+  <a href="#" onclick="cleanUpDoneTodos(); return false">Clean up</a>
     </div>
   </div>
 
@@ -111,7 +113,7 @@
     // update the HTML inside the counter element
     totalCount.innerHTML = totalTodos;
 
-    function updateCounters() {
+function updateCounters() {
   // Total number of todos
   var totalCount = document.getElementById('total-count');
   var totalTodos = document.getElementsByClassName("todo").length;
@@ -197,7 +199,17 @@ function createTodo(title) {
 function nextTodoId() {
   return document.getElementsByClassName("todo").length + 1;
 }
-createTodo("dikkelul")
+function cleanUpDoneTodos() {
+  var list = document.getElementById("todolist");
+  var doneItems = document.getElementsByClassName("completed");
+
+  // Reverse loop through the done todo items so we can remove them without changing the index of the remaining items when we remove them
+  for (var i = doneItems.length; i > 0; i--) {
+    list.removeChild(doneItems[i-1]);
+  }
+
+//   updateCounters();
+}
 
   </script>
 
